@@ -1,25 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 
-const SplashScreen = ({navigation}) => {
+const SplashScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Animatable.Image animation="bounceInDown" source={require("../assets/logo.png")} style={styles.logo} resizeMode="stretch" />
+        <Animatable.Image animation="bounceIn" source={require("../assets/logo.png")} style={styles.logo} resizeMode="stretch" />
       </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.title}>Stay Update</Text>
-        <Text style={styles.text}>SignIn with Account</Text>
-        <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <LinearGradient colors={["#08d4c4", "#5fdde5"]} style={styles.signIn}>
-              <Text style={styles.textSign}>Next</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-      </Animatable.View>
+      <View style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate("Splash2")}>
+          <Text style={styles.textSign}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -27,12 +21,11 @@ const SplashScreen = ({navigation}) => {
 export default SplashScreen;
 
 const { height } = Dimensions.get("screen");
-const height_logo = height * 0.28;
+const height_logo = height * 0.48;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#009387",
     backgroundColor: "#5fdde5",
   },
   header: {
@@ -63,18 +56,13 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "flex-end",
-    marginTop: 30,
-  },
-  signIn: {
-    width: 150,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 50,
-    flexDirection: "row",
+    marginBottom: 10,
+    marginRight: 10,
   },
   textSign: {
     color: "white",
     fontWeight: "bold",
+    marginRight: 20,
+    marginBottom: 10,
   },
 });
