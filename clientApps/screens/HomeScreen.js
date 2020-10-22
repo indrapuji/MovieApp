@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
             <FlatList
               horizontal={true}
               data={popularMovie}
-              renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
+              renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
               keyExtractor={(key, index) => index.toString()}
             />
           </View>
@@ -49,12 +49,12 @@ const HomeScreen = ({ navigation }) => {
             <FlatList
               horizontal={true}
               data={upcomingMovie}
-              renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
+              renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
               keyExtractor={(key, index) => index.toString()}
             />
           </View>
           <View>
-            <Text style={styles.title}>Movie</Text>
+            <Text style={styles.title}>TV Show</Text>
             <View style={styles.movieHeader}>
               <Text style={styles.movieTitle}>Popular</Text>
               <TouchableOpacity>
@@ -93,6 +93,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: "#B9FFFC", 
   },
   moviePath: {
     // backgroundColor: "#B9FFFC",

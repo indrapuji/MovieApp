@@ -9,7 +9,7 @@ export default function NowPlayingCard(props) {
           <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${props.list.poster_path}` }} style={styles.imageCard} />
           <View style={styles.imageSpace}>
             <Text numberOfLines={2} style={styles.movieTitle}>
-              {props.list.title}
+              {props.isMovie ? props.list.title : props.list.name}
             </Text>
           </View>
         </View>
