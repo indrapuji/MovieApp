@@ -11,23 +11,17 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "./screens/HomeScreen";
 import DetailScreen from "./screens/DetailScreen";
 import SplashScreen from "./screens/SplashScreen";
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {/* <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Detail" component={DetailScreen} />
-      </Drawer.Navigator> */}
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
@@ -40,6 +34,7 @@ const App = () => {
             },
           }}
         >
+          <Stack.Screen name="Splash" component={SplashScreen} />
           <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Movie Apps" }} />
           <Stack.Screen name="Detail" component={DetailScreen} />
         </Stack.Navigator>
