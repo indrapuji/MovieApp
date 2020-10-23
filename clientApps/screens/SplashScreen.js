@@ -8,6 +8,9 @@ const SplashScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Animatable.Image animation="bounceIn" source={require("../assets/logo.png")} style={styles.logo} resizeMode="stretch" />
+        <Animatable.Text animation="bounceInUp" style={styles.logoText}>
+          Movie App
+        </Animatable.Text>
       </View>
       <View style={styles.button}>
         <TouchableOpacity onPress={() => navigation.navigate("Splash2")}>
@@ -45,6 +48,12 @@ const styles = StyleSheet.create({
     width: height_logo,
     height: height_logo,
   },
+  logoText: {
+    fontSize: 40,
+    color: "white",
+    fontWeight: "bold",
+    marginTop: -30,
+  },
   title: {
     color: "#05375a",
     fontSize: 30,
@@ -64,5 +73,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: 20,
     marginBottom: 10,
+    fontSize: 20,
   },
 });
