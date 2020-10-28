@@ -16,6 +16,7 @@ import HomeScreen from "./screens/HomeScreen";
 import DetailScreen from "./screens/DetailScreen";
 import SplashScreen from "./screens/SplashScreen";
 import SplashScreen2 from "./screens/SplashScreen2";
+import ContentScreen from "./screens/ContentScreen";
 
 const Stack = createStackNavigator();
 
@@ -24,20 +25,23 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: "#5fdde5",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 25,
-            },
-          }}
+          screenOptions={
+            {
+              // headerStyle: {
+              //   backgroundColor: "#5fdde5",
+              // },
+              // headerTintColor: "#fff",
+              // headerTitleStyle: {
+              //   fontWeight: "bold",
+              //   fontSize: 25,
+              // },
+            }
+          }
         >
-          <Stack.Screen name="Splash" component={SplashScreen} options={{ title: null }} />
-          <Stack.Screen name="Splash2" component={SplashScreen2} options={{ title: null }} />
-          <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Movie Apps" }} />
+          <Stack.Screen name="Splash" component={SplashScreen} options={{ title: null, headerShown: false }} />
+          <Stack.Screen name="Splash2" component={SplashScreen2} options={{ title: null, headerShown: false }} />
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: null, headerShown: false }} />
+          <Stack.Screen name="Content" component={ContentScreen} options={{ title: null, headerShown: false }} />
           <Stack.Screen name="Detail" component={DetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>

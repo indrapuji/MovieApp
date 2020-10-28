@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
-export default function NowPlayingCard(props) {
+const CardMovieHorizontal = (props) => {
   return (
     <View>
       <TouchableOpacity>
@@ -16,7 +16,9 @@ export default function NowPlayingCard(props) {
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default CardMovieHorizontal;
 
 const styles = StyleSheet.create({
   container: {

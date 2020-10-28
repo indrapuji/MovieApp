@@ -4,19 +4,23 @@ import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 
 const SplashScreen = ({ navigation }) => {
+  setTimeout(() => {
+    navigation.navigate("Splash2");
+  }, 5000);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Animatable.Image animation="bounceIn" source={require("../assets/logo.png")} style={styles.logo} resizeMode="stretch" />
-        <Animatable.Text animation="bounceInUp" style={styles.logoText}>
-          Movie App
-        </Animatable.Text>
+        <Animatable.Image animation="bounceIn" duration={2000} source={require("../assets/logo.png")} style={styles.logo} resizeMode="stretch" />
+        <Animatable.View animation="bounceInUp" duration={2000}>
+          <Text style={styles.logoText}>Cinema Hero</Text>
+          <Text style={styles.logoSubText}>Million of movie to discover</Text>
+        </Animatable.View>
       </View>
-      <View style={styles.button}>
+      {/* <View style={styles.button}>
         <TouchableOpacity onPress={() => navigation.navigate("Splash2")}>
           <Text style={styles.textSign}>Next</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -49,10 +53,17 @@ const styles = StyleSheet.create({
     height: height_logo,
   },
   logoText: {
-    fontSize: 40,
+    textAlign: "center",
+    fontSize: 50,
     color: "white",
     fontWeight: "bold",
     marginTop: -30,
+  },
+  logoSubText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white",
+    marginTop: -10,
   },
   title: {
     color: "#05375a",

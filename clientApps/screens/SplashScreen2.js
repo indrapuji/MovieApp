@@ -11,7 +11,7 @@ const SplashScreen = ({navigation}) => {
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.title}>Stay Update</Text>
-        <Text style={styles.text}>SignIn with Account</Text>
+        {/* <Text style={styles.text}>SignIn with Account</Text> */}
         <View style={styles.button}>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <LinearGradient colors={["#08d4c4", "#5fdde5"]} style={styles.signIn}>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "flex-end",
-    marginTop: 30,
+    marginTop: 130,
   },
   signIn: {
     width: 150,
