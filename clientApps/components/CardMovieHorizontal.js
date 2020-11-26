@@ -1,12 +1,30 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import React from 'react';
+import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const CardMovieHorizontal = (props) => {
   return (
     <View>
       <TouchableOpacity>
         <View style={styles.container}>
-          <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${props.list.poster_path}` }} style={styles.imageCard} />
+          {!props.list ? (
+            <SkeletonPlaceholder>
+              <View
+                style={{
+                  height: height < 828 ? height / 2 : 300,
+                  width: width,
+                  borderRadius: 20,
+                }}
+              />
+            </SkeletonPlaceholder>
+          ) : (
+            <Image
+              source={{
+                uri: `https://image.tmdb.org/t/p/w500/${props.list.poster_path}`,
+              }}
+              style={styles.imageCard}
+            />
+          )}
           <View style={styles.imageSpace}>
             <Text numberOfLines={2} style={styles.movieTitle}>
               {props.isMovie ? props.list.title : props.list.name}
@@ -22,9 +40,9 @@ export default CardMovieHorizontal;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 5,
   },
   imageCard: {
@@ -38,6 +56,6 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     marginBottom: 5,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
