@@ -42,7 +42,7 @@ const App = () => {
           <Stack.Screen name="Splash2" component={SplashScreen2} options={{ title: null, headerShown: false }} />
           <Stack.Screen name="Home" component={HomeScreen} options={{ title: null, headerShown: false }} />
           <Stack.Screen name="Content" component={ContentScreen} options={{ title: null, headerShown: false }} />
-          <Stack.Screen name="Detail" component={DetailScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} options={{ title: null, headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

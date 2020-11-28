@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nowPopularMovie, nowUpcomingMovie } from "../store/actions/getMovie";
 import { nowPlayingTV, nowPopularTV } from "../store/actions/getTVSHOW";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text, FlatList, StatusBar } from "react-native";
 import CardMovieHorizontal from "../components/CardMovieHorizontal";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
@@ -39,6 +39,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
+      <StatusBar backgroundColor="#5fdde5" />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>CINEMA HERO</Text>
@@ -114,6 +115,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "#B9FFFC",
+    marginTop: 35,
+    marginBottom: 35,
   },
   header: {
     backgroundColor: "#5fdde5",

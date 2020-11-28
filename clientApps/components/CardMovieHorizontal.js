@@ -1,35 +1,43 @@
-import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { useNavigation } from "@react-navigation/native";
 
 const CardMovieHorizontal = (props) => {
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!props.list) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [props]);
+  // console.log(props.isMovie);
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Detail", { movieId: props.list.id, category: props.isMovie ? "1" : "0" })}>
         <View style={styles.container}>
-          {!props.list ? (
+          {loading ? (
             <SkeletonPlaceholder>
-              <View
-                style={{
-                  height: height < 828 ? height / 2 : 300,
-                  width: width,
-                  borderRadius: 20,
-                }}
-              />
+              <View style={styles.imageCard} />
+              <View style={{ width: 115, height: 13, marginTop: 5, borderRadius: 10 }} />
+              <View style={{ width: 115, height: 13, marginTop: 5, borderRadius: 10 }} />
             </SkeletonPlaceholder>
           ) : (
-            <Image
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500/${props.list.poster_path}`,
-              }}
-              style={styles.imageCard}
-            />
+            <>
+              <Image
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500/${props.list.poster_path}`,
+                }}
+                style={styles.imageCard}
+              />
+              <Text numberOfLines={2} style={styles.movieTitle}>
+                {props.isMovie ? props.list.title : props.list.name}
+              </Text>
+            </>
           )}
-          <View style={styles.imageSpace}>
-            <Text numberOfLines={2} style={styles.movieTitle}>
-              {props.isMovie ? props.list.title : props.list.name}
-            </Text>
-          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -40,9 +48,9 @@ export default CardMovieHorizontal;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     marginHorizontal: 5,
   },
   imageCard: {
@@ -50,12 +58,10 @@ const styles = StyleSheet.create({
     height: 170,
     borderRadius: 10,
   },
-  imageSpace: {
-    width: 115,
-    marginTop: 5,
-  },
   movieTitle: {
+    width: 115,
+    marginTop: 10,
     marginBottom: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
