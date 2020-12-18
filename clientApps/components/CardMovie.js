@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const CardMovie = (props) => {
+  const navigation = useNavigation();
   return (
-    <View>
-      <TouchableOpacity>
+    <View style={{ marginBottom: 10 }}>
+      <TouchableOpacity onPress={() => navigation.navigate("Detail", { movieId: props.list.id, category: props.isMovie ? "1" : "0" })}>
         <View style={styles.container}>
           <Image source={{ uri: `https://image.tmdb.org/t/p/w500/${props.list.backdrop_path}` }} style={styles.imageCard} />
         </View>
@@ -41,5 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 20,
+    color: "white",
+    marginHorizontal: 20,
   },
 });

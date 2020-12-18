@@ -6,7 +6,7 @@ const ContentScreen = ({ route }) => {
   const { data, title, type } = route.params;
 
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: "black" }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{title}</Text>
@@ -17,7 +17,7 @@ const ContentScreen = ({ route }) => {
           keyExtractor={(key, index) => index.toString()}
         />
       </View>
-    </>
+    </View>
   );
 };
 
@@ -25,11 +25,12 @@ export default ContentScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: "#B9FFFC",
+    marginTop: 35,
   },
   header: {
-    backgroundColor: "#5fdde5",
+    // backgroundColor: "#5fdde5",
     padding: 10,
   },
   headerText: {
