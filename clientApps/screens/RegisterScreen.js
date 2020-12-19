@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StatusBar, TextInput, ALert, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StatusBar, TextInput, ActivityIndicator, Alert } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const registerScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -10,18 +12,42 @@ const registerScreen = ({ navigation }) => {
     password: '',
     address: '',
   });
+  const [load, setLoad] = useState(false);
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('token', value);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   const handdleLogin = () => {
     navigation.navigate('Login');
   };
   const handdleRegister = () => {
-    Alert.alert('Welcome');
-    navigation.navigate('Home');
+    setLoad(true);
+    axios({
+      method: 'post',
+      url: `http://localhost:3000/register`,
+      data: value,
+    })
+      .then(({ data }) => {
+        storeData(data.token);
+        setLoad(false);
+        Alert.alert('welcome', data.name);
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        setLoad(false);
+        Alert.alert(err.response.data.message);
+      });
   };
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#5fdde5" />
+      <StatusBar barStyle="light-content" />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.title}>Register</Text>
+        {load ? <ActivityIndicator size="large" /> : <Text style={styles.title}>Register</Text>}
         <View style={styles.contentPosition}>
           <View style={styles.inputPosition}>
             <View>
@@ -67,15 +93,15 @@ const registerScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonPosition}>
           <TouchableOpacity onPress={() => handdleRegister()}>
-            <LinearGradient colors={['#08d4c4', '#5fdde5']} style={styles.signIn}>
+            <LinearGradient colors={['#0278ae', '#51adcf']} style={styles.signIn}>
               <Text style={styles.textSign}>Register</Text>
             </LinearGradient>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={{ marginTop: 15, flexDirection: 'row' }}>
-              <Text style={{ color: 'white' }}>Have an Account, Login</Text>
+              <Text style={{ color: 'white' }}>Have an Account, </Text>
               <TouchableOpacity onPress={() => handdleLogin()}>
-                <Text style={{ color: '#08d4c4', marginLeft: 5 }}>Here</Text>
+                <Text style={{ color: '#0278ae', marginLeft: 5 }}>Login Here</Text>
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -97,9 +123,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    backgroundColor: 'black',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingVertical: 50,
     paddingHorizontal: 30,
     position: 'relative',

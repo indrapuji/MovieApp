@@ -6,6 +6,7 @@ import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, To
 import CardMovieHorizontal from '../components/CardMovieHorizontal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '../hooks/useFetch';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -16,11 +17,23 @@ const HomeScreen = ({ navigation }) => {
 
   const [genreMovie, setGenreMovie] = useState(null);
   const [genreTV, setGenreTV] = useState(null);
+  const [token, setToken] = useState(null);
 
   const movieApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [movieGenre, movieLoading] = useFetch(movieApi);
   const tvApi = `https://api.themoviedb.org/3/genre/tv/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [tvGenre, tvLoading] = useFetch(tvApi);
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        setToken(value);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
 
   useEffect(() => {
     dispatch(nowPopularMovie());

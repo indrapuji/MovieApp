@@ -44,6 +44,7 @@ class UserController {
           });
         } else {
           if (compare(password, user.password)) {
+            const name = user.name;
             const token = jwt.sign(
               {
                 id: user.id,
@@ -51,7 +52,7 @@ class UserController {
               },
               process.env.SECRET
             );
-            res.status(201).json({ email, token });
+            res.status(201).json({ name, token });
           } else {
             res.status(400).json({
               message: 'Wrong password',

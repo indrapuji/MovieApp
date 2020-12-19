@@ -1,31 +1,58 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StatusBar, TextInput, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, StatusBar, TextInput, Alert, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
   const [value, setValue] = useState({
     email: '',
     password: '',
   });
+  const [load, setLoad] = useState(false);
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('token', value);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   const handdleLogin = () => {
-    Alert.alert('Welcome');
-    navigation.navigate('Home');
+    setLoad(true);
+    axios({
+      method: 'post',
+      url: `http://localhost:3000/login`,
+      data: value,
+    })
+      .then(({ data }) => {
+        storeData(data.token);
+        setLoad(false);
+        Alert.alert('welcome', data.name);
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        setLoad(false);
+        Alert.alert(err.response.data.message);
+      });
   };
 
   const handdleRegister = () => {
     navigation.navigate('Register');
   };
+
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#5fdde5" />
+      <StatusBar barStyle="light-content" />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.title}>Login</Text>
+        {load ? <ActivityIndicator size="large" /> : <Text style={styles.title}>Login</Text>}
         <View style={styles.contentPosition}>
           <View style={styles.inputPosition}>
             <View>
               <TextInput
-                placeholder="Enter Email"
+                placeholder="Enter Your Email"
                 autoCapitalize="none"
                 value={value.email}
                 onChangeText={(text) => setValue({ ...value, email: text })}
@@ -34,7 +61,7 @@ const LoginScreen = ({ navigation }) => {
             </View>
             <View>
               <TextInput
-                placeholder="Enter Password"
+                placeholder="Enter Your Password"
                 secureTextEntry={true}
                 autoCapitalize="none"
                 value={value.password}
@@ -46,15 +73,15 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonPosition}>
           <TouchableOpacity onPress={() => handdleLogin()}>
-            <LinearGradient colors={['#08d4c4', '#5fdde5']} style={styles.signIn}>
+            <LinearGradient colors={['#0278ae', '#51adcf']} style={styles.signIn}>
               <Text style={styles.textSign}>Login</Text>
             </LinearGradient>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={{ marginTop: 15, flexDirection: 'row' }}>
-              <Text style={{ color: 'white' }}>Dont have Account, Register</Text>
+              <Text style={{ color: 'white' }}>Dont have Account, </Text>
               <TouchableOpacity onPress={() => handdleRegister()}>
-                <Text style={{ color: '#08d4c4', marginLeft: 5 }}>Here</Text>
+                <Text style={{ color: '#0278ae', marginLeft: 5 }}>Register Here</Text>
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
@@ -75,9 +102,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    backgroundColor: 'black',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingVertical: 50,
     paddingHorizontal: 30,
     position: 'relative',
@@ -96,8 +120,10 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
+    borderRadius: 20,
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#08d4c4',
   },
   contentPosition: {
     flex: 1,

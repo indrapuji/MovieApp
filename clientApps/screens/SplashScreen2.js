@@ -31,7 +31,7 @@ const SplashScreen = ({ navigation }) => {
 
 export default SplashScreen;
 
-const { height } = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
@@ -67,17 +67,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonPosition: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    marginTop: 130,
+    alignItems: 'center',
+    marginTop: 40,
   },
   signIn: {
-    width: 150,
-    height: 40,
+    width: width - 130,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
     flexDirection: 'row',
+    marginBottom: 20,
   },
   textSign: {
     color: 'white',
