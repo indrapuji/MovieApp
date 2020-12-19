@@ -1,6 +1,6 @@
-"use strict";
-const { Model } = require("sequelize");
-const { bcrypt } = require("../helpers/bcrypt");
+'use strict';
+const { Model } = require('sequelize');
+const { bcrypt } = require('../helpers/bcrypt');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Wishlist, { foreignKey: 'userId' })
+      User.hasMany(models.Wishlist, { foreignKey: 'userId' });
     }
   }
   User.init(
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "nama tidak boleh kosong",
+            msg: 'nama tidak boleh kosong',
           },
         },
       },
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "email tidak boleh kosong",
+            msg: 'email tidak boleh kosong',
           },
         },
       },
@@ -41,7 +41,17 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "password tidak boleh kosong",
+            msg: 'password tidak boleh kosong',
+          },
+        },
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'alamat tidak boleh kosong',
           },
         },
       },
@@ -55,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       sequelize,
-      modelName: "User",
+      modelName: 'User',
     }
   );
   return User;
