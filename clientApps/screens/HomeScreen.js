@@ -6,8 +6,7 @@ import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, To
 import CardMovieHorizontal from '../components/CardMovieHorizontal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '../hooks/useFetch';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Config from 'react-native-config';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,23 +17,11 @@ const HomeScreen = ({ navigation }) => {
 
   const [genreMovie, setGenreMovie] = useState(null);
   const [genreTV, setGenreTV] = useState(null);
-  const [token, setToken] = useState(null);
 
-  const movieApi = `${Config.TMDB_API}/3/genre/movie/list?api_key=${Config.TMDB_KEY}&language=en-US`;
+  const movieApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [movieGenre, movieLoading] = useFetch(movieApi);
-  const tvApi = `${Config.TMDB_API}/3/genre/tv/list?api_key=${Config.TMDB_KEY}&language=en-US`;
+  const tvApi = `https://api.themoviedb.org/3/genre/tv/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [tvGenre, tvLoading] = useFetch(tvApi);
-
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('token');
-      if (value !== null) {
-        setToken(value);
-      }
-    } catch (e) {
-      // error reading value
-    }
-  };
 
   useEffect(() => {
     dispatch(nowPopularMovie());
@@ -131,12 +118,20 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.header}>
             <Text style={styles.headerText}>CINEMA HERO</Text>
             <Text style={styles.subText}>Million of movie to discover</Text>
+            <View style={styles.headerIcon}>
+              <TouchableOpacity onPress={() => console.log('more')}>
+                <Icon name="navicon" color="white" size={20} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => console.log('search')}>
+                <Icon name="search" color="white" size={20} />
+              </TouchableOpacity>
+            </View>
           </View>
           <ScrollView>
             <View>
-              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+              {/* <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
                 <Text style={styles.categoryText}>genre</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <Text style={styles.title}>Movie</Text>
               <View style={styles.movieHeader}>
                 <Text style={styles.movieTitle}>Popular</Text>
@@ -215,7 +210,7 @@ const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 140,
+    paddingBottom: 230,
   },
   header: {
     backgroundColor: 'black',
@@ -231,6 +226,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     textAlign: 'center',
+  },
+  headerIcon: {
+    paddingVertical: 10,
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   categoryText: {
     color: 'red',
@@ -248,7 +249,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginLeft: 10,
     fontWeight: 'bold',
-    marginTop: 15,
     color: 'white',
   },
   movieTitle: {

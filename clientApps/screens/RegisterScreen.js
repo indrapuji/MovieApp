@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Config from 'react-native-config';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const registerScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -13,7 +13,9 @@ const registerScreen = ({ navigation }) => {
     password: '',
     address: '',
   });
+  const [repass, setRepass] = useState('');
   const [load, setLoad] = useState(false);
+  const [show, setShow] = useState(false);
 
   const storeData = async (value) => {
     try {
@@ -26,30 +28,44 @@ const registerScreen = ({ navigation }) => {
   const handdleLogin = () => {
     navigation.navigate('Login');
   };
-  const handdleRegister = () => {
-    setLoad(true);
-    axios({
-      method: 'post',
-      // url: `http://localhost:3000/register`,
-      url: `https://afternoon-harbor-22608.herokuapp.com/register`,
-      data: value,
-    })
-      .then(({ data }) => {
-        storeData(data.token);
-        setLoad(false);
-        Alert.alert('welcome', data.name);
-        navigation.navigate('Home');
-      })
-      .catch((err) => {
-        setLoad(false);
-        Alert.alert(err.response.data.message);
-      });
+
+  const handdleSee = () => {
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   };
+
+  const handdleRegister = () => {
+    if (value.password === repass) {
+      setLoad(true);
+      axios({
+        method: 'post',
+        // url: `http://localhost:3000/register`,
+        url: `https://afternoon-harbor-22608.herokuapp.com/register`,
+        data: value,
+      })
+        .then(({ data }) => {
+          storeData(data.token);
+          setLoad(false);
+          Alert.alert('welcome', data.name);
+          navigation.navigate('Home');
+        })
+        .catch((err) => {
+          setLoad(false);
+          Alert.alert(err.response.data.message);
+        });
+    } else {
+      Alert.alert('Password Not Match');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        {load ? <ActivityIndicator size="large" /> : <Text style={styles.title}>Register</Text>}
+        {load ? <ActivityIndicator size="large" color="white" /> : <Text style={styles.title}>Register</Text>}
         <View style={styles.contentPosition}>
           <View style={styles.inputPosition}>
             <View>
@@ -70,14 +86,27 @@ const registerScreen = ({ navigation }) => {
                 style={styles.inputSize}
               />
             </View>
-            <View>
+            <View style={{ position: 'relative' }}>
               <TextInput
                 placeholder="Enter Password"
-                secureTextEntry={true}
+                secureTextEntry={show ? false : true}
                 autoCapitalize="none"
                 value={value.password}
                 onChangeText={(text) => setValue({ ...value, password: text })}
                 style={styles.inputSize}
+              />
+              <TouchableOpacity style={{ position: 'absolute', top: 13, right: 20 }} onPress={() => handdleSee()}>
+                <Icon name={show ? 'eye' : 'eye-slash'} color="grey" size={20} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TextInput
+                placeholder="Re-enter Password"
+                secureTextEntry={show ? false : true}
+                autoCapitalize="none"
+                value={repass}
+                onChangeText={(text) => setRepass(text)}
+                style={[styles.inputSize, { borderColor: value.password === repass ? 'white' : 'red', borderWidth: 1 }]}
               />
             </View>
             <View>
@@ -156,7 +185,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     backgroundColor: 'white',
-    paddingHorizontal: 20,
+    paddingLeft: 20,
+    paddingRight: 50,
   },
   inputAreaSize: {
     width: width / 1.12,

@@ -5,6 +5,7 @@ import useFetch from '../hooks/useFetch';
 import YouTube from 'react-native-youtube';
 import CreditCast from '../components/CreditCast';
 import CardMovieHorizontal from '../components/CardMovieHorizontal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -41,13 +42,9 @@ const DetailScreen = ({ route, navigation }) => {
       if (dataYoutube.results) {
         if (dataYoutube.results.length > 0 || dataYoutube.results.length !== undefined) {
           setYoutubeId(dataYoutube.results[0].key);
-          console.log('youtube Id ===> ', dataYoutube.results[0].key);
           setGenres(dataDetail.genres);
-          console.log('genres ===> ', dataDetail.genres);
           setCredit(dataCredit.cast);
-          console.log('credit ===> ', dataCredit.cast);
           setSimiliar(dataSimiliar.results);
-          console.log('similiar ===> ', dataSimiliar.results);
         }
       }
     }
@@ -57,11 +54,16 @@ const DetailScreen = ({ route, navigation }) => {
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       <StatusBar barStyle="light-content" />
       <View style={styles.container}>
-        <View style={{ marginHorizontal: 20, marginBottom: 10 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white' }}>Back</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View style={{ marginHorizontal: 20, marginBottom: 10, flexDirection: 'row', height: 20 }}>
+            <View style={{ justifyContent: 'flex-end' }}>
+              <Icon name="chevron-left" size={15} color="white" />
+            </View>
+            <View style={{ marginLeft: 10, justifyContent: 'center' }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Back</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
         {Youtubeloading && Detailloading && Creditloading && Similiarloading ? (
           <SkeletonPlaceholder>
             <View style={{ width: width, height: 300 }} />

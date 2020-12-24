@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const LoginScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -11,6 +12,7 @@ const LoginScreen = ({ navigation }) => {
     password: '',
   });
   const [load, setLoad] = useState(false);
+  const [show, setShow] = useState(false);
 
   const storeData = async (value) => {
     try {
@@ -31,7 +33,6 @@ const LoginScreen = ({ navigation }) => {
       .then(({ data }) => {
         storeData(data.token);
         setLoad(false);
-        Alert.alert('welcome', data.name);
         navigation.navigate('Home');
       })
       .catch((err) => {
@@ -44,11 +45,19 @@ const LoginScreen = ({ navigation }) => {
     navigation.navigate('Register');
   };
 
+  const handdleSee = () => {
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        {load ? <ActivityIndicator size="large" /> : <Text style={styles.title}>Login</Text>}
+        {load ? <ActivityIndicator size="large" color="white" /> : <Text style={styles.title}>Login</Text>}
         <View style={styles.contentPosition}>
           <View style={styles.inputPosition}>
             <View>
@@ -60,15 +69,18 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.inputSize}
               />
             </View>
-            <View>
+            <View style={{ position: 'relative' }}>
               <TextInput
                 placeholder="Enter Your Password"
-                secureTextEntry={true}
+                secureTextEntry={show ? false : true}
                 autoCapitalize="none"
                 value={value.password}
                 onChangeText={(text) => setValue({ ...value, password: text })}
                 style={styles.inputSize}
               />
+              <TouchableOpacity style={{ position: 'absolute', top: 13, right: 20 }} onPress={() => handdleSee()}>
+                <Icon name={show ? 'eye' : 'eye-slash'} color="grey" size={20} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -137,6 +149,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: 'white',
     paddingLeft: 20,
+    paddingRight: 50,
   },
   inputPosition: {
     alignItems: 'center',

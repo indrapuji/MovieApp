@@ -26,20 +26,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={
-            {
-              // headerStyle: {
-              //   backgroundColor: "#5fdde5",
-              // },
-              // headerTintColor: "#fff",
-              // headerTitleStyle: {
-              //   fontWeight: "bold",
-              //   fontSize: 25,
-              // },
-            }
-          }
-        >
+        <Stack.Navigator>
           <Stack.Screen name="Splash" component={SplashScreen} options={{ title: null, headerShown: false }} />
           <Stack.Screen name="Splash2" component={SplashScreen2} options={{ title: null, headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ title: null, headerShown: false }} />
