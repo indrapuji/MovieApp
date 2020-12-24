@@ -5,7 +5,6 @@ import useFetch from '../hooks/useFetch';
 import YouTube from 'react-native-youtube';
 import CreditCast from '../components/CreditCast';
 import CardMovieHorizontal from '../components/CardMovieHorizontal';
-import Config from 'react-native-config';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -17,21 +16,29 @@ const DetailScreen = ({ route, navigation }) => {
   const [choose, setChoose] = useState(1);
   const [similiar, setSimiliar] = useState('');
 
-  const youtubeApi = `${Config.TMDB_API}/3/${category === '1' ? 'movie' : 'tv'}/${movieId}/videos?api_key=${Config.TMDB_KEY}&language=en-US`;
+  const youtubeApi = `https://api.themoviedb.org/3/${
+    category === '1' ? 'movie' : 'tv'
+  }/${movieId}/videos?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [dataYoutube, Youtubeloading] = useFetch(youtubeApi);
 
-  const detailApi = `${Config.TMDB_API}/3/${category === '1' ? 'movie' : 'tv'}/${movieId}?api_key=${Config.TMDB_KEY}&language=en-US`;
+  const detailApi = `https://api.themoviedb.org/3/${
+    category === '1' ? 'movie' : 'tv'
+  }/${movieId}?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [dataDetail, Detailloading] = useFetch(detailApi);
 
-  const creditApi = `${Config.TMDB_API}/3/${category === '1' ? 'movie' : 'tv'}/${movieId}/credits?api_key=${Config.TMDB_KEY}&language=en-US`;
+  const creditApi = `https://api.themoviedb.org/3/${
+    category === '1' ? 'movie' : 'tv'
+  }/${movieId}/credits?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [dataCredit, Creditloading] = useFetch(creditApi);
 
-  const similiarApi = `${Config.TMDB_API}/3/${category === '1' ? 'movie' : 'tv'}/${movieId}/similar?api_key=${Config.TMDB_KEY}&language=en-US&page=1`;
+  const similiarApi = `https://api.themoviedb.org/3/${
+    category === '1' ? 'movie' : 'tv'
+  }/${movieId}/similar?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1`;
   const [dataSimiliar, Similiarloading] = useFetch(similiarApi);
 
   useEffect(() => {
     if (dataDetail.genres) {
-      if (dataYoutube.results.length > 0) {
+      if (dataYoutube.results.length > 0 || dataYoutube.results.length !== undefined) {
         setYoutubeId(dataYoutube.results[0].key);
         setGenres(dataDetail.genres);
         setCredit(dataCredit.cast);
@@ -56,7 +63,7 @@ const DetailScreen = ({ route, navigation }) => {
         ) : (
           <View>
             {youtubeId !== null ? (
-              <YouTube videoId={youtubeId} play loop style={{ height: 300 }} />
+              <YouTube apiKey={'AIzaSyC0lOc_m - wH6fLoLieq9OBNP65vepABUig'} videoId={youtubeId} play loop style={{ height: 300 }} />
             ) : (
               <Image
                 source={{

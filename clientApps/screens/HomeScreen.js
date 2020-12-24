@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nowPopularMovie, nowUpcomingMovie } from '../store/actions/getMovie';
 import { nowPlayingTV, nowPopularTV } from '../store/actions/getTVSHOW';
-import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import CardMovieHorizontal from '../components/CardMovieHorizontal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '../hooks/useFetch';
@@ -126,84 +126,86 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>CINEMA HERO</Text>
-          <Text style={styles.subText}>Million of movie to discover</Text>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>CINEMA HERO</Text>
+            <Text style={styles.subText}>Million of movie to discover</Text>
+          </View>
+          <ScrollView>
+            <View>
+              <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
+                <Text style={styles.categoryText}>genre</Text>
+              </TouchableOpacity>
+              <Text style={styles.title}>Movie</Text>
+              <View style={styles.movieHeader}>
+                <Text style={styles.movieTitle}>Popular</Text>
+                <TouchableOpacity onPress={() => moviePopular('Popular Movie', 'MOVIE')}>
+                  <Text style={styles.movieNext}>More</Text>
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                horizontal={true}
+                data={popularMovie.slice(0, 8)}
+                renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
+                keyExtractor={(key, index) => index.toString()}
+              />
+            </View>
+            <View>
+              <View style={styles.movieHeader}>
+                <Text style={styles.movieTitle}>UpComing</Text>
+                <TouchableOpacity onPress={() => movieUpcoming('Upcoming Movie', 'MOVIE')}>
+                  <Text style={styles.movieNext}>More</Text>
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                horizontal={true}
+                data={upcomingMovie.slice(0, 8)}
+                renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
+                keyExtractor={(key, index) => index.toString()}
+              />
+            </View>
+            <View>
+              <Text style={styles.title}>TV Show</Text>
+              <View style={styles.movieHeader}>
+                <Text style={styles.movieTitle}>Popular</Text>
+                <TouchableOpacity onPress={() => TVPopular('Popular TV Show', 'TV')}>
+                  <Text style={styles.movieNext}>More</Text>
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                horizontal={true}
+                data={popularTV.slice(0, 8)}
+                renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
+                keyExtractor={(key, index) => index.toString()}
+              />
+            </View>
+            <View>
+              <View style={styles.movieHeader}>
+                <Text style={styles.movieTitle}>Now Playing</Text>
+                <TouchableOpacity onPress={() => TVPlaying('Now Playing TV Show', 'TV')}>
+                  <Text style={styles.movieNext}>More</Text>
+                </TouchableOpacity>
+              </View>
+              <FlatList
+                horizontal={true}
+                data={playingTV.slice(0, 8)}
+                renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
+                keyExtractor={(key, index) => index.toString()}
+              />
+            </View>
+            <BottomSheet
+              ref={bs}
+              snapPoints={[1120, 0]}
+              renderHeader={renderTopHeader}
+              renderContent={renderContent}
+              initialSnap={1}
+              enabledGestureInteraction={true}
+              enabledContentTapInteraction={false}
+            />
+          </ScrollView>
         </View>
-        <ScrollView>
-          <View>
-            <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-              <Text style={styles.categoryText}>genre</Text>
-            </TouchableOpacity>
-            <Text style={styles.title}>Movie</Text>
-            <View style={styles.movieHeader}>
-              <Text style={styles.movieTitle}>Popular</Text>
-              <TouchableOpacity onPress={() => moviePopular('Popular Movie', 'MOVIE')}>
-                <Text style={styles.movieNext}>More</Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal={true}
-              data={popularMovie.slice(0, 8)}
-              renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
-              keyExtractor={(key, index) => index.toString()}
-            />
-          </View>
-          <View>
-            <View style={styles.movieHeader}>
-              <Text style={styles.movieTitle}>UpComing</Text>
-              <TouchableOpacity onPress={() => movieUpcoming('Upcoming Movie', 'MOVIE')}>
-                <Text style={styles.movieNext}>More</Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal={true}
-              data={upcomingMovie.slice(0, 8)}
-              renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} list={item} />}
-              keyExtractor={(key, index) => index.toString()}
-            />
-          </View>
-          <View>
-            <Text style={styles.title}>TV Show</Text>
-            <View style={styles.movieHeader}>
-              <Text style={styles.movieTitle}>Popular</Text>
-              <TouchableOpacity onPress={() => TVPopular('Popular TV Show', 'TV')}>
-                <Text style={styles.movieNext}>More</Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal={true}
-              data={popularTV.slice(0, 8)}
-              renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
-              keyExtractor={(key, index) => index.toString()}
-            />
-          </View>
-          <View>
-            <View style={styles.movieHeader}>
-              <Text style={styles.movieTitle}>Now Playing</Text>
-              <TouchableOpacity onPress={() => TVPlaying('Now Playing TV Show', 'TV')}>
-                <Text style={styles.movieNext}>More</Text>
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              horizontal={true}
-              data={playingTV.slice(0, 8)}
-              renderItem={({ item, index }) => <CardMovieHorizontal list={item} />}
-              keyExtractor={(key, index) => index.toString()}
-            />
-          </View>
-          <BottomSheet
-            ref={bs}
-            snapPoints={[1120, 0]}
-            renderHeader={renderTopHeader}
-            renderContent={renderContent}
-            initialSnap={1}
-            enabledGestureInteraction={true}
-            enabledContentTapInteraction={false}
-          />
-        </ScrollView>
-      </View>
+      </SafeAreaView>
     </View>
   );
 };
@@ -213,8 +215,7 @@ const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 35,
-    marginBottom: 100,
+    paddingBottom: 140,
   },
   header: {
     backgroundColor: 'black',

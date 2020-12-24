@@ -31,7 +31,7 @@ const registerScreen = ({ navigation }) => {
     axios({
       method: 'post',
       // url: `http://localhost:3000/register`,
-      url: `${Config.API_URL}/register`,
+      url: `https://afternoon-harbor-22608.herokuapp.com/register`,
       data: value,
     })
       .then(({ data }) => {

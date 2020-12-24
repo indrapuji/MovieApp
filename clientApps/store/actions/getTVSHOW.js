@@ -1,8 +1,6 @@
-import Config from 'react-native-config';
-
 export function nowPopularTV() {
   return (dispatch, getState) => {
-    fetch(`${Config.TMDB_API}/3/tv/popular?api_key=${Config.TMDB_KEY}&language=en-US&page=1`)
+    fetch('https://api.themoviedb.org/3/tv/popular?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1')
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -18,7 +16,7 @@ export function nowPopularTV() {
 
 export function nowPlayingTV() {
   return (dispatch, getState) => {
-    fetch(`${Config.TMDB_API}/3/tv/on_the_air?api_key=${Config.TMDB_KEY}&language=en-US&page=1`)
+    fetch('https://api.themoviedb.org/3/tv/on_the_air?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1')
       .then((res) => res.json())
       .then((data) => {
         dispatch({
