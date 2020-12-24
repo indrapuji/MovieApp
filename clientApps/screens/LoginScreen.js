@@ -24,7 +24,8 @@ const LoginScreen = ({ navigation }) => {
     setLoad(true);
     axios({
       method: 'post',
-      url: `http://localhost:3000/login`,
+      // url: `http://localhost:3000/login`,
+      url: `https://afternoon-harbor-22608.herokuapp.com/login`,
       data: value,
     })
       .then(({ data }) => {

@@ -29,7 +29,8 @@ const registerScreen = ({ navigation }) => {
     setLoad(true);
     axios({
       method: 'post',
-      url: `http://localhost:3000/register`,
+      // url: `http://localhost:3000/register`,
+      url: `https://afternoon-harbor-22608.herokuapp.com//register`,
       data: value,
     })
       .then(({ data }) => {
