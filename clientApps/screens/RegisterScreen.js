@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
 const registerScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -30,7 +31,7 @@ const registerScreen = ({ navigation }) => {
     axios({
       method: 'post',
       // url: `http://localhost:3000/register`,
-      url: `https://afternoon-harbor-22608.herokuapp.com//register`,
+      url: `${Config.API_URL}/register`,
       data: value,
     })
       .then(({ data }) => {

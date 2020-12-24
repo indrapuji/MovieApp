@@ -1,10 +1,12 @@
+import Config from 'react-native-config';
+
 export function nowPopularMovie() {
   return (dispatch, getState) => {
-    fetch("https://api.themoviedb.org/3/movie/popular?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1")
+    fetch(`${Config.TMDB_API}/3/movie/popular?api_key=${Config.TMDB_KEY}&language=en-US&page=1`)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
-          type: "POPULARMOVIE",
+          type: 'POPULARMOVIE',
           payload: data.results,
         });
       })
@@ -16,11 +18,11 @@ export function nowPopularMovie() {
 
 export function nowUpcomingMovie() {
   return (dispatch, getState) => {
-    fetch("https://api.themoviedb.org/3/movie/upcoming?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1")
+    fetch(`${Config.TMDB_API}/3/movie/upcoming?api_key=${Config.TMDB_KEY}&language=en-US&page=1`)
       .then((res) => res.json())
       .then((data) => {
         dispatch({
-          type: "UPCOMINGMOVIE",
+          type: 'UPCOMINGMOVIE',
           payload: data.results,
         });
       })

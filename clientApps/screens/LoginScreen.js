@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
 const LoginScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -25,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
     axios({
       method: 'post',
       // url: `http://localhost:3000/login`,
-      url: `https://afternoon-harbor-22608.herokuapp.com/login`,
+      url: `${Config.API_URL}/login`,
       data: value,
     })
       .then(({ data }) => {

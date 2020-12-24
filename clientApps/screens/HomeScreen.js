@@ -7,6 +7,7 @@ import CardMovieHorizontal from '../components/CardMovieHorizontal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '../hooks/useFetch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -19,9 +20,9 @@ const HomeScreen = ({ navigation }) => {
   const [genreTV, setGenreTV] = useState(null);
   const [token, setToken] = useState(null);
 
-  const movieApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
+  const movieApi = `${Config.TMDB_API}/3/genre/movie/list?api_key=${Config.TMDB_KEY}&language=en-US`;
   const [movieGenre, movieLoading] = useFetch(movieApi);
-  const tvApi = `https://api.themoviedb.org/3/genre/tv/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
+  const tvApi = `${Config.TMDB_API}/3/genre/tv/list?api_key=${Config.TMDB_KEY}&language=en-US`;
   const [tvGenre, tvLoading] = useFetch(tvApi);
 
   const getData = async () => {
