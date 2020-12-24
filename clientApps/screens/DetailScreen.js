@@ -38,11 +38,17 @@ const DetailScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (dataDetail.genres) {
-      if (dataYoutube.results.length > 0 || dataYoutube.results.length !== undefined) {
-        setYoutubeId(dataYoutube.results[0].key);
-        setGenres(dataDetail.genres);
-        setCredit(dataCredit.cast);
-        setSimiliar(dataSimiliar.results);
+      if (dataYoutube.results) {
+        if (dataYoutube.results.length > 0 || dataYoutube.results.length !== undefined) {
+          setYoutubeId(dataYoutube.results[0].key);
+          console.log('youtube Id ===> ', dataYoutube.results[0].key);
+          setGenres(dataDetail.genres);
+          console.log('genres ===> ', dataDetail.genres);
+          setCredit(dataCredit.cast);
+          console.log('credit ===> ', dataCredit.cast);
+          setSimiliar(dataSimiliar.results);
+          console.log('similiar ===> ', dataSimiliar.results);
+        }
       }
     }
   }, [dataYoutube, dataDetail, dataCredit, dataSimiliar]);
