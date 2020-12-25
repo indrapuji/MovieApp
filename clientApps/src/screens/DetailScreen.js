@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, StatusBar, FlatList, Image } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import useFetch from '../hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 import YouTube from 'react-native-youtube';
-import CreditCast from '../components/CreditCast';
-import CardMovieHorizontal from '../components/CardMovieHorizontal';
+import CreditCast from '@components/CreditCast';
+import CardMovieHorizontal from '@components/CardMovieHorizontal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get('screen');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import CardMovie from '../components/CardMovie';
+import CardMovie from '@components/CardMovie';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ContentScreen = ({ route, navigation }) => {

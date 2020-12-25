@@ -1,11 +1,11 @@
 import React, { useEffect, useState, createRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { nowPopularMovie, nowUpcomingMovie } from '../store/actions/getMovie';
-import { nowPlayingTV, nowPopularTV } from '../store/actions/getTVSHOW';
+import { nowPopularMovie, nowUpcomingMovie } from '@store/actions/getMovie';
+import { nowPlayingTV, nowPopularTV } from '@store/actions/getTVSHOW';
 import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
-import CardMovieHorizontal from '../components/CardMovieHorizontal';
+import CardMovieHorizontal from '@components/CardMovieHorizontal';
 import BottomSheet from 'reanimated-bottom-sheet';
-import useFetch from '../hooks/useFetch';
+import useFetch from '@hooks/useFetch';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
