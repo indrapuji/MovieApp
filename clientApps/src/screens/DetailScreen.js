@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     marginTop: 50,
-    marginBottom: 35,
+    // marginBottom: 35,
   },
 });

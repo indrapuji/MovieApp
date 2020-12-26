@@ -4,7 +4,7 @@ import { nowPopularMovie, nowUpcomingMovie } from '@store/actions/getMovie';
 import { nowPlayingTV, nowPopularTV } from '@store/actions/getTVSHOW';
 import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import CardMovieHorizontal from '@components/CardMovieHorizontal';
-import BottomSheet from 'reanimated-bottom-sheet';
+// import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '@hooks/useFetch';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -63,52 +63,52 @@ const HomeScreen = ({ navigation }) => {
     console.log(tvID);
   };
 
-  const renderTopHeader = () => (
-    <View style={styles.bottomSheetContainer}>
-      <View style={styles.bottomSheetToggle}></View>
-    </View>
-  );
+  // const renderTopHeader = () => (
+  //   <View style={styles.bottomSheetContainer}>
+  //     <View style={styles.bottomSheetToggle}></View>
+  //   </View>
+  // );
 
-  const renderContent = () => (
-    <View style={styles.BottomSheetWrap}>
-      <ScrollView>
-        <View style={{ marginBottom: 60 }}>
-          <View style={{ marginTop: 10, marginBottom: 10 }}>
-            <Text style={styles.bottomSheetTitle}>Movie Category</Text>
-          </View>
-          <View style={styles.bottomSheetCategory}>
-            {genreMovie &&
-              genreMovie.map((item, idx) => {
-                return (
-                  <TouchableOpacity key={idx} onPress={() => handdleMovieCategory(item.id)}>
-                    <View key={item.id} style={styles.categoryWrap}>
-                      <Text style={styles.bottomSheetText}>{item.name}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-          </View>
-          <View style={{ marginTop: 50, marginBottom: 10 }}>
-            <Text style={styles.bottomSheetTitle}>TV Category</Text>
-          </View>
-          <View style={styles.bottomSheetCategory}>
-            {genreTV &&
-              genreTV.map((item, idx) => {
-                return (
-                  <TouchableOpacity key={idx} onPress={() => handdleTVCategory(item.id)}>
-                    <View key={item.id} style={styles.categoryWrap}>
-                      <Text style={styles.bottomSheetText}>{item.name}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-          </View>
-        </View>
-      </ScrollView>
-    </View>
-  );
+  // const renderContent = () => (
+  //   <View style={styles.BottomSheetWrap}>
+  //     <ScrollView>
+  //       <View style={{ marginBottom: 60 }}>
+  //         <View style={{ marginTop: 10, marginBottom: 10 }}>
+  //           <Text style={styles.bottomSheetTitle}>Movie Category</Text>
+  //         </View>
+  //         <View style={styles.bottomSheetCategory}>
+  //           {genreMovie &&
+  //             genreMovie.map((item, idx) => {
+  //               return (
+  //                 <TouchableOpacity key={idx} onPress={() => handdleMovieCategory(item.id)}>
+  //                   <View key={item.id} style={styles.categoryWrap}>
+  //                     <Text style={styles.bottomSheetText}>{item.name}</Text>
+  //                   </View>
+  //                 </TouchableOpacity>
+  //               );
+  //             })}
+  //         </View>
+  //         <View style={{ marginTop: 50, marginBottom: 10 }}>
+  //           <Text style={styles.bottomSheetTitle}>TV Category</Text>
+  //         </View>
+  //         <View style={styles.bottomSheetCategory}>
+  //           {genreTV &&
+  //             genreTV.map((item, idx) => {
+  //               return (
+  //                 <TouchableOpacity key={idx} onPress={() => handdleTVCategory(item.id)}>
+  //                   <View key={item.id} style={styles.categoryWrap}>
+  //                     <Text style={styles.bottomSheetText}>{item.name}</Text>
+  //                   </View>
+  //                 </TouchableOpacity>
+  //               );
+  //             })}
+  //         </View>
+  //       </View>
+  //     </ScrollView>
+  //   </View>
+  // );
 
-  const bs = createRef();
+  // const bs = createRef();
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -119,10 +119,10 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.headerText}>CINEMA HERO</Text>
             <Text style={styles.subText}>Million of movie to discover</Text>
             <View style={styles.headerIcon}>
-              <TouchableOpacity onPress={() => console.log('more')}>
+              <TouchableOpacity onPress={() => null}>
                 <Icon name="navicon" color="white" size={20} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('search')}>
+              <TouchableOpacity onPress={() => null}>
                 <Icon name="search" color="white" size={20} />
               </TouchableOpacity>
             </View>
@@ -189,7 +189,7 @@ const HomeScreen = ({ navigation }) => {
                 keyExtractor={(key, index) => index.toString()}
               />
             </View>
-            <BottomSheet
+            {/* <BottomSheet
               ref={bs}
               snapPoints={[1120, 0]}
               renderHeader={renderTopHeader}
@@ -197,7 +197,7 @@ const HomeScreen = ({ navigation }) => {
               initialSnap={1}
               enabledGestureInteraction={true}
               enabledContentTapInteraction={false}
-            />
+            /> */}
           </ScrollView>
         </View>
       </SafeAreaView>
