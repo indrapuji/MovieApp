@@ -6,6 +6,7 @@ import YouTube from 'react-native-youtube';
 import CreditCast from '@components/CreditCast';
 import CardMovieHorizontal from '@components/CardMovieHorizontal';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -16,6 +17,7 @@ const DetailScreen = ({ route, navigation }) => {
   const [credit, setCredit] = useState('');
   const [choose, setChoose] = useState(1);
   const [similiar, setSimiliar] = useState('');
+  const isFocused = useIsFocused();
 
   const youtubeApi = `https://api.themoviedb.org/3/${
     category === '1' ? 'movie' : 'tv'
@@ -71,7 +73,12 @@ const DetailScreen = ({ route, navigation }) => {
         ) : (
           <View>
             {youtubeId !== null ? (
-              <YouTube apiKey={'AIzaSyC0lOc_m - wH6fLoLieq9OBNP65vepABUig'} videoId={youtubeId} play loop style={{ height: 300 }} />
+              <YouTube
+                apiKey={'AIzaSyC0lOc_m - wH6fLoLieq9OBNP65vepABUig'}
+                videoId={youtubeId}
+                play={isFocused ? true : false}
+                style={{ height: 300 }}
+              />
             ) : (
               <Image
                 source={{
@@ -165,6 +172,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     marginTop: 50,
-    // marginBottom: 35,
   },
 });

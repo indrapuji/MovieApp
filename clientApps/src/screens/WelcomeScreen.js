@@ -10,7 +10,7 @@ const WelcomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#5fdde5" />
       <View style={styles.header}>
-        <Animatable.Image animation="bounceIn" duration={2000} source={require('../assets/logo.png')} style={styles.logo} resizeMode="stretch" />
+        <Animatable.Image animation="bounceIn" duration={2000} source={require('@assets/Images/logo.png')} style={styles.logo} resizeMode="stretch" />
         <Animatable.View animation="bounceInUp" duration={2000}>
           <Text style={styles.logoText}>Cinema Hero</Text>
           <Text style={styles.logoSubText}>Million of movie to discover</Text>

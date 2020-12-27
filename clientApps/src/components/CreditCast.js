@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { useNavigation } from '@react-navigation/native';
 
 const CreditCast = (props) => {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,6 +14,10 @@ const CreditCast = (props) => {
       setLoading(false);
     }
   }, [props]);
+
+  const handdleProfileDetail = (person_id) => {
+    navigation.navigate('CastDetail', { person_id });
+  };
   return (
     <View>
       <View style={styles.container}>
@@ -24,19 +30,23 @@ const CreditCast = (props) => {
         ) : (
           <>
             {props.list.profile_path ? (
-              <Image
-                source={{
-                  uri: `https://image.tmdb.org/t/p/w500${props.list.profile_path}`,
-                }}
-                style={styles.imageCard}
-              />
+              <TouchableOpacity onPress={() => handdleProfileDetail(props.list.id)}>
+                <Image
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500${props.list.profile_path}`,
+                  }}
+                  style={styles.imageCard}
+                />
+              </TouchableOpacity>
             ) : (
-              <Image
-                source={{
-                  uri: `https://via.placeholder.com/67x100?text=Image+not+found`,
-                }}
-                style={styles.imageCard}
-              />
+              <TouchableOpacity onPress={() => handdleProfileDetail(props.list.id)}>
+                <Image
+                  source={{
+                    uri: `https://via.placeholder.com/67x100?text=Image+not+found`,
+                  }}
+                  style={styles.imageCard}
+                />
+              </TouchableOpacity>
             )}
 
             <Text numberOfLines={2} style={styles.name}>
@@ -53,9 +63,9 @@ export default CreditCast;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 5,
   },
   imageCard: {
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     width: 67,
     marginTop: 10,
     marginBottom: 5,
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
 });

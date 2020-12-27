@@ -7,18 +7,18 @@ const ContentScreen = ({ route, navigation }) => {
   const { data, title, type } = route.params;
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.base}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{title}</Text>
         </View>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={{ marginHorizontal: 20, marginBottom: 10, flexDirection: 'row', height: 20 }}>
-            <View style={{ justifyContent: 'flex-end' }}>
+          <View style={styles.headerIcon}>
+            <View style={styles.backPosition}>
               <Icon name="chevron-left" size={15} color="white" />
             </View>
-            <View style={{ marginLeft: 10, justifyContent: 'center' }}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Back</Text>
+            <View style={styles.textPosition}>
+              <Text style={styles.textStyles}>Back</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -36,6 +36,10 @@ export default ContentScreen;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: 'black',
+  },
+  base: {
     marginTop: 35,
     marginBottom: 80,
   },
@@ -52,5 +56,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     textAlign: 'center',
+  },
+  headerIcon: {
+    marginHorizontal: 20,
+    marginBottom: 10,
+    flexDirection: 'row',
+    height: 20,
+  },
+  backPosition: {
+    justifyContent: 'flex-end',
+  },
+  textPosition: {
+    marginLeft: 10,
+    justifyContent: 'center',
+  },
+  textStyles: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

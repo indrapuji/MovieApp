@@ -4,9 +4,9 @@ import { nowPopularMovie, nowUpcomingMovie } from '@store/actions/getMovie';
 import { nowPlayingTV, nowPopularTV } from '@store/actions/getTVSHOW';
 import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import CardMovieHorizontal from '@components/CardMovieHorizontal';
+import Header from '@components/Header';
 // import BottomSheet from 'reanimated-bottom-sheet';
 import useFetch from '@hooks/useFetch';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -115,18 +115,7 @@ const HomeScreen = ({ navigation }) => {
       <StatusBar barStyle="light-content" backgroundColor="black" />
       <SafeAreaView>
         <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>CINEMA HERO</Text>
-            <Text style={styles.subText}>Million of movie to discover</Text>
-            <View style={styles.headerIcon}>
-              <TouchableOpacity onPress={() => null}>
-                <Icon name="navicon" color="white" size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => null}>
-                <Icon name="search" color="white" size={20} />
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Header />
           <ScrollView>
             <View>
               {/* <TouchableOpacity onPress={() => bs.current.snapTo(0)}>

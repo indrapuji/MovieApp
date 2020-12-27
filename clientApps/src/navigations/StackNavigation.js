@@ -10,6 +10,7 @@ import ContentScreen from '@screens/ContentScreen';
 import LoginScreen from '@screens/LoginScreen';
 import RegisterScreen from '@screens/RegisterScreen';
 import WatchlistScreen from '@screens/WatchlistScreen';
+import CastDetailScreen from '@screens/CastDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const AuthStackNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: null, headerShown: false }} />
       <Stack.Screen name="Content" component={ContentScreen} options={{ title: null, headerShown: false }} />
       <Stack.Screen name="Detail" component={DetailScreen} options={{ title: null, headerShown: false }} />
+      <Stack.Screen name="CastDetail" component={CastDetailScreen} options={{ title: null, headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -33,15 +35,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: null, headerShown: false }} />
       <Stack.Screen name="Content" component={ContentScreen} options={{ title: null, headerShown: false }} />
       <Stack.Screen name="Detail" component={DetailScreen} options={{ title: null, headerShown: false }} />
-    </Stack.Navigator>
-  );
-};
-
-const ContentStackNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Content" component={ContentScreen} options={{ title: null, headerShown: false }} />
-      <Stack.Screen name="Detail" component={DetailScreen} options={{ title: null, headerShown: false }} />
+      <Stack.Screen name="CastDetail" component={CastDetailScreen} options={{ title: null, headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -54,4 +48,4 @@ const WatchlistStackNavigator = () => {
   );
 };
 
-export { AuthStackNavigator, MainStackNavigator, WatchlistStackNavigator, ContentStackNavigator };
+export { AuthStackNavigator, MainStackNavigator, WatchlistStackNavigator };

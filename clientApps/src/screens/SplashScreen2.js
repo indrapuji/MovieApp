@@ -30,7 +30,7 @@ const SplashScreen = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#5fdde5" />
       <View style={styles.header}>
-        <Animatable.Image animation="bounceInDown" source={require('../assets/logo.png')} style={styles.logo} resizeMode="stretch" />
+        <Animatable.Image animation="bounceInDown" source={require('@assets/Images/logo.png')} style={styles.logo} resizeMode="stretch" />
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.title}>Cinema Hero</Text>

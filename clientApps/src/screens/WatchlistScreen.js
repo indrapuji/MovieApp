@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StatusBar, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, StatusBar, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import Header from '@components/Header';
 
 const WatchlistScreen = () => {
   return (
@@ -8,18 +8,7 @@ const WatchlistScreen = () => {
       <StatusBar barStyle="light-content" backgroundColor="black" />
       <SafeAreaView>
         <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>CINEMA HERO</Text>
-            <Text style={styles.subText}>Million of movie to discover</Text>
-            <View style={styles.headerIcon}>
-              <TouchableOpacity onPress={() => null}>
-                <Icon name="navicon" color="white" size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => null}>
-                <Icon name="search" color="white" size={20} />
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Header />
           <ScrollView>
             <View style={{ alignItems: 'center' }}>
               <Text style={{ color: 'white' }}>Watchlist Screen</Text>

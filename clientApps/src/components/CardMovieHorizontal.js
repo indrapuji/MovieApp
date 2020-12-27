@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { useNavigation } from '@react-navigation/native';
 
 const CardMovieHorizontal = (props) => {
   const navigation = useNavigation();
@@ -17,7 +17,7 @@ const CardMovieHorizontal = (props) => {
   // console.log(props.isMovie);
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate("Detail", { movieId: props.list.id, category: props.isMovie ? "1" : "0" })}>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail', { movieId: props.list.id, category: props.isMovie ? '1' : '0' })}>
         <View style={styles.container}>
           {loading ? (
             <SkeletonPlaceholder>
@@ -48,9 +48,9 @@ export default CardMovieHorizontal;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 5,
   },
   imageCard: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     width: 115,
     marginTop: 10,
     marginBottom: 5,
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
 });
