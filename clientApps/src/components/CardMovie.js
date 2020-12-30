@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const CardMovie = (props) => {
   const navigation = useNavigation();
-  // console.log(props);
+
   return (
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={() => navigation.navigate('Detail', { movieId: props.list.id, category: props.isMovie ? '1' : '0' })}>

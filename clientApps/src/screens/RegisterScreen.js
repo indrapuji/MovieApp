@@ -5,6 +5,7 @@ import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import host from '@hooks/host';
 
 const registerScreen = ({ navigation }) => {
   const [value, setValue] = useState({
@@ -42,8 +43,7 @@ const registerScreen = ({ navigation }) => {
       setLoad(true);
       axios({
         method: 'post',
-        // url: `http://localhost:3000/register`,
-        url: `https://afternoon-harbor-22608.herokuapp.com/register`,
+        url: `${host}/register`,
         data: value,
       })
         .then(({ data }) => {
@@ -65,7 +65,7 @@ const registerScreen = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        {load ? <ActivityIndicator size="large" color="white" /> : <Text style={styles.title}>Register</Text>}
+        <Text style={styles.title}>Register</Text>
         <View style={styles.contentPosition}>
           <View style={styles.inputPosition}>
             <View>
@@ -123,19 +123,27 @@ const registerScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.buttonPosition}>
-          <TouchableOpacity onPress={() => handdleRegister()}>
-            <LinearGradient colors={['#0278ae', '#51adcf']} style={styles.signIn}>
-              <Text style={styles.textSign}>Register</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={{ marginTop: 15, flexDirection: 'row' }}>
-              <Text style={{ color: 'white' }}>Have an Account, </Text>
-              <TouchableOpacity onPress={() => handdleLogin()}>
-                <Text style={{ color: '#0278ae', marginLeft: 5 }}>Login Here</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
+          {load ? (
+            <TouchableOpacity onPress={() => null}>
+              <View style={[styles.signIn, { backgroundColor: 'white' }]}>
+                <Text style={styles.textSign}>
+                  <ActivityIndicator size="small" color="black" />
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => handdleRegister()}>
+              <LinearGradient colors={['#0278ae', '#51adcf']} style={styles.signIn}>
+                <Text style={styles.textSign}>Register</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          )}
+          <View style={{ marginTop: 15, flexDirection: 'row' }}>
+            <Text style={{ color: 'white' }}>Have an Account, </Text>
+            <TouchableOpacity onPress={() => handdleLogin()}>
+              <Text style={{ color: '#0278ae', marginLeft: 5 }}>Login Here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Animatable.View>
     </View>

@@ -1,15 +1,15 @@
-const { Wishlist } = require("../models");
+const { Wishlist } = require('../models');
 
 class WishlistController {
   static getWishlist(req, res) {
     let option = { where: { userId: req.user.id } };
     Wishlist.findAll(option)
       .then((wishlist) => {
-        res.status(200).json(wishlist);
+        res.status(200).json({ results: wishlist });
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Internal server Error",
+          message: 'Internal server Error',
         });
       });
   }
@@ -22,25 +22,39 @@ class WishlistController {
           res.status(200).json(wishlist);
         } else {
           res.status(404).json({
-            message: "wishlist not found",
+            message: 'wishlist not found',
           });
         }
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Internal server Error",
+          message: 'Internal server Error',
         });
       });
   }
 
   static addWishlist(req, res) {
-    const { movieId } = req.body;
-    Wishlist.create({
-      movieId,
-      userId: req.user.id,
-    })
+    const { movieId, title, poster_path, type } = req.body;
+    const userId = req.user.id;
+    const option = { where: { title, userId } };
+    Wishlist.findOne(option)
+      .then((data) => {
+        if (data) {
+          res.status(400).json({
+            message: 'Movie already exist in Watchlist',
+          });
+        } else {
+          return Wishlist.create({
+            movieId,
+            title,
+            poster_path,
+            type,
+            userId: req.user.id,
+          });
+        }
+      })
       .then((wishlist) => {
-        res.status(201).json(wishlist);
+        res.status(201).json({ data: wishlist, message: 'Added to Watchlist' });
       })
       .catch((err) => {
         if (err.errors) {
@@ -51,7 +65,7 @@ class WishlistController {
           res.status(400).json(errData);
         } else {
           res.status(500).json({
-            message: "Internal server Error",
+            message: 'Internal server Error',
           });
         }
       });
@@ -64,7 +78,7 @@ class WishlistController {
       .then((data) => {
         if (!data) {
           res.status(404).json({
-            message: "wishlist Not Found",
+            message: 'wishlist Not Found',
           });
         } else {
           deleteData = data;
@@ -74,12 +88,12 @@ class WishlistController {
       .then(() => {
         res.status(200).json({
           deleteData,
-          message: "Has been Deleted",
+          message: 'Has been Deleted',
         });
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Internal server Error",
+          message: 'Internal server Error',
         });
       });
   }

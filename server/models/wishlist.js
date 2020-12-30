@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Wishlist extends Model {
     /**
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Wishlist.belongsTo(models.User, { foreignKey: 'userId' })
+      Wishlist.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Wishlist.init(
@@ -20,7 +20,37 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "movieId cannot be empty",
+            msg: 'movieId cannot be empty',
+          },
+        },
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'title cannot be empty',
+          },
+        },
+      },
+      poster_path: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Poster cannot be empty',
+          },
+        },
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Type cannot be empty',
           },
         },
       },
@@ -30,14 +60,14 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "userId cannot be empty",
+            msg: 'userId cannot be empty',
           },
         },
       },
     },
     {
       sequelize,
-      modelName: "Wishlist",
+      modelName: 'Wishlist',
     }
   );
   return Wishlist;

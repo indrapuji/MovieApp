@@ -40,12 +40,7 @@ const CreditCast = (props) => {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={() => handdleProfileDetail(props.list.id)}>
-                <Image
-                  source={{
-                    uri: `https://via.placeholder.com/67x100?text=Image+not+found`,
-                  }}
-                  style={styles.imageCard}
-                />
+                <Image source={require('@assets/Images/default-image.png')} style={styles.imageCard} />
               </TouchableOpacity>
             )}
 

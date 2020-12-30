@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, StatusBar, FlatList, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, StatusBar, FlatList, Image, Alert } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import useFetch from '@hooks/useFetch';
 import YouTube from 'react-native-youtube';
@@ -7,16 +7,21 @@ import CreditCast from '@components/CreditCast';
 import CardMovieHorizontal from '@components/CardMovieHorizontal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import host from '@hooks/host';
 
 const { width, height } = Dimensions.get('screen');
 
 const DetailScreen = ({ route, navigation }) => {
   const { movieId, category } = route.params;
+
   const [youtubeId, setYoutubeId] = useState(null);
   const [genres, setGenres] = useState('');
   const [credit, setCredit] = useState('');
   const [choose, setChoose] = useState(1);
   const [similiar, setSimiliar] = useState('');
+  const [token, setToken] = useState('');
   const isFocused = useIsFocused();
 
   const youtubeApi = `https://api.themoviedb.org/3/${
@@ -39,6 +44,20 @@ const DetailScreen = ({ route, navigation }) => {
   }/${movieId}/similar?api_key=464b6412840269fe91e87ba7d6958784&language=en-US&page=1`;
   const [dataSimiliar, Similiarloading] = useFetch(similiarApi);
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        setToken(value);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   useEffect(() => {
     if (dataDetail.genres) {
       if (dataYoutube.results) {
@@ -51,6 +70,26 @@ const DetailScreen = ({ route, navigation }) => {
       }
     }
   }, [dataYoutube, dataDetail, dataCredit, dataSimiliar]);
+
+  const addWatchlist = (movie_id, poster, title, category_id) => {
+    axios({
+      method: 'post',
+      url: `${host}/wishlist`,
+      data: {
+        movieId: movie_id,
+        title: title,
+        poster_path: poster,
+        type: category_id,
+      },
+      headers: { token },
+    })
+      .then(({ data }) => {
+        Alert.alert(data.message);
+      })
+      .catch((err) => {
+        Alert.alert(err.response.data.message);
+      });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -82,13 +121,22 @@ const DetailScreen = ({ route, navigation }) => {
             ) : (
               <Image
                 source={{
-                  uri: `https://image.tmdb.org/t/p/w500/${dataDetail.backdrop_path}`,
+                  uri: `https://image.tmdb.org/t/p/w500${dataDetail.backdrop_path}`,
                 }}
                 style={{ height: 300 }}
               />
             )}
+            <TouchableOpacity
+              onPress={() => addWatchlist(movieId, dataDetail.backdrop_path, category === '1' ? dataDetail.title : dataDetail.name, category)}
+            >
+              <View style={{ marginHorizontal: 20, marginTop: 5 }}>
+                <View style={{ backgroundColor: 'blue', borderRadius: 10, height: 40, justifyContent: 'center' }}>
+                  <Text style={{ color: 'white', textAlign: 'center' }}>Add to watchlist</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
             <ScrollView>
-              <View style={{ marginBottom: 50 }}>
+              <View style={{ marginBottom: 80 }}>
                 <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', marginHorizontal: 20, marginTop: 10, marginBottom: 5 }}>
                   {category === '1' ? dataDetail.title : dataDetail.name}
                 </Text>
@@ -151,7 +199,7 @@ const DetailScreen = ({ route, navigation }) => {
                       <FlatList
                         horizontal={true}
                         data={similiar}
-                        renderItem={({ item, index }) => <CardMovieHorizontal isMovie={true} isBlack={true} list={item} />}
+                        renderItem={({ item, index }) => <CardMovieHorizontal isMovie={category === '1' ? true : false} isBlack={true} list={item} />}
                         keyExtractor={(key, index) => index.toString()}
                       />
                     </View>

@@ -32,10 +32,14 @@ const CastDetailScreen = ({ route, navigation }) => {
             {dataPerson && (
               <View style={{ marginHorizontal: 20 }}>
                 <View style={{ alignItems: 'center' }}>
-                  <Image
-                    source={{ uri: `https://image.tmdb.org/t/p/w500${dataPerson.profile_path}` }}
-                    style={{ height: 300, width: 200, borderRadius: 20 }}
-                  />
+                  {dataPerson.profile_path ? (
+                    <Image
+                      source={{ uri: `https://image.tmdb.org/t/p/w500${dataPerson.profile_path}` }}
+                      style={{ height: 300, width: 200, borderRadius: 20 }}
+                    />
+                  ) : (
+                    <Image source={require('@assets/Images/default-image.png')} style={{ height: 300, width: 200, borderRadius: 20 }} />
+                  )}
                 </View>
                 <View style={{ marginTop: 30 }}>
                   <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30 }}>{dataPerson.name}</Text>

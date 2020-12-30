@@ -149,7 +149,7 @@ const HomeScreen = ({ navigation }) => {
                 keyExtractor={(key, index) => index.toString()}
               />
             </View>
-            <View>
+            <View style={{ marginTop: 20 }}>
               <Text style={styles.title}>TV Show</Text>
               <View style={styles.movieHeader}>
                 <Text style={styles.movieTitle}>Popular</Text>
