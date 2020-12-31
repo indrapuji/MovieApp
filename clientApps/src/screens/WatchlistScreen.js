@@ -76,26 +76,28 @@ const WatchlistScreen = ({ navigation }) => {
             <Text style={{ color: 'white', paddingBottom: 5, fontSize: 20 }}>Watchlist</Text>
           </View>
           <ScrollView>
-            <View style={{ marginTop: 20, marginBottom: 50, flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5 }}>
+            <View style={{ marginTop: 20, marginBottom: 70, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', marginLeft: 10 }}>
               {wish &&
                 wish.map((item, index) => {
                   return (
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Detail', { movieId: item.movieId, category: item.type })}
-                      onLongPress={() => wishlistNewId(item.id, item.title)}
-                    >
-                      <View key={index} style={{ marginRight: 10, marginLeft: 10 }}>
-                        <Image
-                          source={{
-                            uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-                          }}
-                          style={styles.imageCard}
-                        />
-                        <Text numberOfLines={2} style={styles.movieTitle}>
-                          {item.title}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                    <View key={index}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('Detail', { movieId: item.movieId, category: item.type })}
+                        onLongPress={() => wishlistNewId(item.id, item.title)}
+                      >
+                        <View style={{ marginRight: 5, marginLeft: 5 }}>
+                          <Image
+                            source={{
+                              uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+                            }}
+                            style={styles.imageCard}
+                          />
+                          <Text numberOfLines={2} style={styles.movieTitle}>
+                            {item.title}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
                   );
                 })}
             </View>

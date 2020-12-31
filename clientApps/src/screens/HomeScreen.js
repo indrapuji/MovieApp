@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nowPopularMovie, nowUpcomingMovie } from '@store/actions/getMovie';
 import { nowPlayingTV, nowPopularTV } from '@store/actions/getTVSHOW';
@@ -15,9 +15,6 @@ const HomeScreen = ({ navigation }) => {
   const popularTV = useSelector((state) => state.tvReducer.popularTV);
   const playingTV = useSelector((state) => state.tvReducer.playingTV);
 
-  const [genreMovie, setGenreMovie] = useState(null);
-  const [genreTV, setGenreTV] = useState(null);
-
   const movieApi = `https://api.themoviedb.org/3/genre/movie/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
   const [movieGenre, movieLoading] = useFetch(movieApi);
   const tvApi = `https://api.themoviedb.org/3/genre/tv/list?api_key=464b6412840269fe91e87ba7d6958784&language=en-US`;
@@ -29,13 +26,6 @@ const HomeScreen = ({ navigation }) => {
     dispatch(nowPopularTV());
     dispatch(nowPlayingTV());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (movieGenre.genres && tvGenre.genres) {
-      setGenreMovie(movieGenre.genres);
-      setGenreTV(tvGenre.genres);
-    }
-  }, [movieGenre, tvGenre]);
 
   const moviePopular = (title, type) => {
     const data = popularMovie;
@@ -53,74 +43,20 @@ const HomeScreen = ({ navigation }) => {
     const data = playingTV;
     navigation.navigate('Content', { data, title, type });
   };
-
-  const handdleMovieCategory = (movieID) => {
-    bs.current.snapTo(1);
-    console.log(movieID);
-  };
-  const handdleTVCategory = (tvID) => {
-    bs.current.snapTo(1);
-    console.log(tvID);
-  };
-
-  // const renderTopHeader = () => (
-  //   <View style={styles.bottomSheetContainer}>
-  //     <View style={styles.bottomSheetToggle}></View>
-  //   </View>
-  // );
-
-  // const renderContent = () => (
-  //   <View style={styles.BottomSheetWrap}>
-  //     <ScrollView>
-  //       <View style={{ marginBottom: 60 }}>
-  //         <View style={{ marginTop: 10, marginBottom: 10 }}>
-  //           <Text style={styles.bottomSheetTitle}>Movie Category</Text>
-  //         </View>
-  //         <View style={styles.bottomSheetCategory}>
-  //           {genreMovie &&
-  //             genreMovie.map((item, idx) => {
-  //               return (
-  //                 <TouchableOpacity key={idx} onPress={() => handdleMovieCategory(item.id)}>
-  //                   <View key={item.id} style={styles.categoryWrap}>
-  //                     <Text style={styles.bottomSheetText}>{item.name}</Text>
-  //                   </View>
-  //                 </TouchableOpacity>
-  //               );
-  //             })}
-  //         </View>
-  //         <View style={{ marginTop: 50, marginBottom: 10 }}>
-  //           <Text style={styles.bottomSheetTitle}>TV Category</Text>
-  //         </View>
-  //         <View style={styles.bottomSheetCategory}>
-  //           {genreTV &&
-  //             genreTV.map((item, idx) => {
-  //               return (
-  //                 <TouchableOpacity key={idx} onPress={() => handdleTVCategory(item.id)}>
-  //                   <View key={item.id} style={styles.categoryWrap}>
-  //                     <Text style={styles.bottomSheetText}>{item.name}</Text>
-  //                   </View>
-  //                 </TouchableOpacity>
-  //               );
-  //             })}
-  //         </View>
-  //       </View>
-  //     </ScrollView>
-  //   </View>
-  // );
-
-  // const bs = createRef();
+  function onSearchSubmit(payload) {
+    const title = 'Search';
+    const type = 'MOVIE';
+    navigation.navigate('Content', { data: payload.results, title, type });
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: 'black' }}>
       <StatusBar barStyle="light-content" backgroundColor="black" />
       <SafeAreaView>
         <View style={styles.container}>
-          <Header />
+          <Header onSubmit={onSearchSubmit} screen={'home'} />
           <ScrollView>
             <View>
-              {/* <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-                <Text style={styles.categoryText}>genre</Text>
-              </TouchableOpacity> */}
               <Text style={styles.title}>Movie</Text>
               <View style={styles.movieHeader}>
                 <Text style={styles.movieTitle}>Popular</Text>
@@ -178,15 +114,6 @@ const HomeScreen = ({ navigation }) => {
                 keyExtractor={(key, index) => index.toString()}
               />
             </View>
-            {/* <BottomSheet
-              ref={bs}
-              snapPoints={[1120, 0]}
-              renderHeader={renderTopHeader}
-              renderContent={renderContent}
-              initialSnap={1}
-              enabledGestureInteraction={true}
-              enabledContentTapInteraction={false}
-            /> */}
           </ScrollView>
         </View>
       </SafeAreaView>

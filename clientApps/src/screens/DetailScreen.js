@@ -22,6 +22,7 @@ const DetailScreen = ({ route, navigation }) => {
   const [choose, setChoose] = useState(1);
   const [similiar, setSimiliar] = useState('');
   const [token, setToken] = useState('');
+  const [isReady, setIsReady] = useState(false);
   const isFocused = useIsFocused();
 
   const youtubeApi = `https://api.themoviedb.org/3/${
@@ -115,8 +116,9 @@ const DetailScreen = ({ route, navigation }) => {
               <YouTube
                 apiKey={'AIzaSyC0lOc_m - wH6fLoLieq9OBNP65vepABUig'}
                 videoId={youtubeId}
-                play={isFocused ? true : false}
+                // play={isFocused}
                 style={{ height: 300 }}
+                onReady={() => setIsReady(true)}
               />
             ) : (
               <Image
