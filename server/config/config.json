@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "movieApp",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "xvxnzwahebkgmw",
+    "password": "8fcc48ae57a909bff15283ffacc4fe6e962cfe1b6a81aa9dc8768e257d5f2132",
+    "database": "d4ejse4e0e9k7q",
+    "host": "ec2-52-201-184-16.compute-1.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
