@@ -15,11 +15,11 @@
 2. Check to this branch ( _that would be **master**_ ).
 3. Go to `clientApps` folder.
 4. Do `npm install` to get all depedencies.
-5. Do `npx pod-install` to install pod file
-6. Do `npm start` to start metro
-7. To start `npm run ios` if using Iphone Emulator or `npm run android` if using android emulator
+5. Do `npx pod-install` to install pod file.
+6. Do `npm start` to start metro.
+7. To start `npm run ios` if using Iphone Emulator or `npm run android` if using android emulator.
 
-## Depedencies
+## Mobile Depedencies
 
 - asyncstorage
 - axios
@@ -32,11 +32,21 @@
 - react-redux
 - thunk
 
-## Server
+## Backend Depedencies
 
-[Heroku server](https://indra-movie-app.herokuapp.com)
+- express
+- sequelize
+- postgresql
+
+## Third party API
+
+- TMDB
+
+## Link Server
+
+[Backend](https://indra-movie-app.herokuapp.com)
 
 ## App
 
 wanna try this app ?
-=> [Cinema Hero](https://drive.google.com/file/d/1kxraeLLwEpZ-GHnWBU11-RUBpQMF5xap/view?usp=sharing) <=
+[Cinema Hero](https://drive.google.com/file/d/1kxraeLLwEpZ-GHnWBU11-RUBpQMF5xap/view?usp=sharing)
