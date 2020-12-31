@@ -8,7 +8,6 @@
 ## Docs 📝 📕
 
 - Build with **React Native** ⚛️
-- using a famous _Reducer_ and that is [React Redux!](https://react-redux.js.org/)
 
 ## Execute 🤜🏼🤛🏼
 
@@ -17,7 +16,7 @@
 3. Go to `clientApps` folder.
 4. Do `npm install` to get all depedencies.
 5. Do `npx pod-install` to install pod file
-6. Do `npm start --reset-cache` to start metro
+6. Do `npm start` to start metro
 7. To start `npm run ios` if using Iphone Emulator or `npm run android` if using android emulator
 
 ## Depedencies
@@ -31,7 +30,7 @@
 - react-native-vector-icons
 - react-native-youtube
 - react-redux
-- redux-thunk
+- thunk
 
 ## Server
 
