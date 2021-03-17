@@ -50,3 +50,7 @@
 
 wanna try this app ?
 [Cinema Hero](https://drive.google.com/file/d/1kxraeLLwEpZ-GHnWBU11-RUBpQMF5xap/view?usp=sharing)
+
+## 📷 Pics
+
+![prompt screen](https://i.imgur.com/Eqqipy3.jpg)
